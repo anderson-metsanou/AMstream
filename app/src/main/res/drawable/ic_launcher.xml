@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Background shape in mystical purple -->
+    <path
+        android:fillColor="#FF6A0DAD"
+        android:pathData="M12,0 L96,0 C102.6,0 108,5.4 108,12 L108,96 C108,102.6 102.6,108 96,108 L12,108 C5.4,108 0,102.6 0,96 L0,12 C0,5.4 5.4,0 12,0 Z" />
+
+    <!-- Golden Magic Portal icon in center -->
+    <path
+        android:fillColor="#FFFFD700"
+        android:pathData="M54,24C37.4,24 24,37.4 24,54C24,70.6 37.4,84 54,84C70.6,84 84,70.6 84,54C84,37.4 70.6,24 54,24ZM54,74C43,74 34,65 34,54C34,43 43,34 54,34C65,34 74,43 74,54C74,65 65,74 54,74Z" />
+</vector>

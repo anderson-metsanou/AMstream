@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout Recherche TMDB : Toolbar avec SearchView + RecyclerView grille -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_night_slate"
+    android:orientation="vertical">
+
+    <!-- Toolbar avec SearchView -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface_container"
+        android:elevation="4dp"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:popupTheme="@style/Theme.AMstream.Toolbar"
+        app:title="@string/search_title"
+        app:titleTextColor="@color/elven_gold" />
+
+    <!-- Texte de chargement -->
+    <TextView
+        android:id="@+id/text_search_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/search_loading"
+        android:textColor="@color/text_hint"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
+    <!-- Message quand aucun résultat -->
+    <TextView
+        android:id="@+id/text_search_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="32dp"
+        android:text="@string/search_no_results"
+        android:textColor="@color/text_hint"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <!-- RecyclerView en grille pour les résultats -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:padding="8dp" />
+
+</LinearLayout>

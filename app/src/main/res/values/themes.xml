@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Thème principal AMstream — Dark Fantasy -->
+    <style name="Theme.AMstream" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Couleurs primaires -->
+        <item name="colorPrimary">@color/mystical_purple</item>
+        <item name="colorPrimaryDark">@color/mystical_purple_dark</item>
+        <item name="colorPrimaryVariant">@color/mystical_purple_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Couleurs secondaires -->
+        <item name="colorSecondary">@color/elven_gold</item>
+        <item name="colorSecondaryVariant">@color/elven_gold_dark</item>
+        <item name="colorOnSecondary">@color/deep_night_slate</item>
+
+        <!-- Couleurs de fond et surface -->
+        <item name="android:colorBackground">@color/deep_night_slate</item>
+        <item name="colorSurface">@color/surface_container</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+
+        <!-- Couleurs d'erreur -->
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/error_container</item>
+
+        <!-- Barre de statut et navigation -->
+        <item name="android:statusBarColor">@color/deep_night_slate</item>
+        <item name="android:navigationBarColor">@color/deep_night_slate</item>
+
+        <!-- Texte -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <!-- Thème spécial pour le Splash Screen -->
+    <style name="Theme.AMstream.Splash" parent="Theme.AMstream">
+        <item name="android:windowBackground">@color/deep_night_slate</item>
+    </style>
+
+    <!-- Style pour la Toolbar -->
+    <style name="Theme.AMstream.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/elven_gold</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+
+    <!-- Style CardView de la collection -->
+    <style name="Widget.AMstream.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/surface_container_high</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
+</resources>

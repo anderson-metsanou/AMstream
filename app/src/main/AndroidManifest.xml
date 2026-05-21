@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permissions réseau pour les appels TMDB -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AMstream"
+        tools:targetApi="31">
+
+        <!-- Écran 1 : Splash Screen (point d'entrée) -->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AMstream.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Écran 2 : Ma Collection (tableau de bord principal) -->
+        <activity
+            android:name=".activity.CollectionActivity"
+            android:exported="false" />
+
+        <!-- Écran 3 : Recherche TMDB -->
+        <activity
+            android:name=".activity.SearchActivity"
+            android:exported="false" />
+
+        <!-- Écran 4 : Détail d'un film -->
+        <activity
+            android:name=".activity.DetailActivity"
+            android:exported="false" />
+
+        <!-- Écran 5 : Paramètres -->
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

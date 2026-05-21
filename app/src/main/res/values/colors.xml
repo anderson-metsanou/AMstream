@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Charte graphique AMstream — Fantasy / Merveilleux -->
+
+    <!-- Couleurs primaires du thème -->
+    <color name="deep_night_slate">#FF0F0C1B</color>
+    <color name="mystical_purple">#FF6A0DAD</color>
+    <color name="mystical_purple_dark">#FF4B007E</color>
+    <color name="mystical_purple_light">#FFDFB7FF</color>
+    <color name="elven_gold">#FFFFD700</color>
+    <color name="elven_gold_dark">#FFC5A600</color>
+
+    <!-- Couleurs de surface -->
+    <color name="surface_container">#FF231E27</color>
+    <color name="surface_container_high">#FF2E2831</color>
+    <color name="surface_variant">#FF39333C</color>
+
+    <!-- Couleurs de texte -->
+    <color name="text_primary">#FFEADFEC</color>
+    <color name="text_secondary">#FFCFC2D5</color>
+    <color name="text_hint">#FF988D9E</color>
+
+    <!-- Couleurs de statut -->
+    <color name="status_to_watch">#FF6A0DAD</color>
+    <color name="status_watching">#FFFFD700</color>
+    <color name="status_watched">#FF2E7D6B</color>
+
+    <!-- Couleurs d'erreur -->
+    <color name="error">#FFFFB4AB</color>
+    <color name="error_container">#FF93000A</color>
+
+    <!-- Couleurs d'outline -->
+    <color name="outline">#FF988D9E</color>
+    <color name="outline_variant">#FF4D4353</color>
+
+    <!-- Blanc et Noir -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>
