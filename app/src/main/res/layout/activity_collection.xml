@@ -12,7 +12,7 @@
         android:id="@+id/toolbar_collection"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/surface_container"
+        android:background="#CC16111A"
         android:elevation="4dp"
         app:navigationIcon="@drawable/ic_menu_burger"
         app:title=""

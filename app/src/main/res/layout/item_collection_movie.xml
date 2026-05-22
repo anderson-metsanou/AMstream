@@ -113,8 +113,8 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:alpha="0.6"
-                android:src="@android:drawable/ic_media_play"
+                android:alpha="0.8"
+                android:src="@drawable/ic_play_circle_outline"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/mystical_purple" />

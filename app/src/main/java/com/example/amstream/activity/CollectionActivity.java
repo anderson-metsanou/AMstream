@@ -126,6 +126,12 @@ public class CollectionActivity extends AppCompatActivity {
         Log.d(TAG, "onResume : Actualisation de la liste de films.");
         refreshList();
         
+        // Force l'onglet actif à se synchroniser lors du retour sur l'écran
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_collection);
+        }
+
         // Restaurer la position du scroll
         if (savedScrollPosition > 0 && recyclerView.getLayoutManager() != null) {
             recyclerView.getLayoutManager().scrollToPosition(savedScrollPosition);
