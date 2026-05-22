@@ -1,6 +1,7 @@
 package com.example.amstream.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.amstream.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Écran 5 : Paramètres.
@@ -60,6 +62,31 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Enregistrer les paramètres
         btnSave.setOnClickListener(v -> savePreferences());
+
+        setupBottomNavigation();
+    }
+
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_profile);
+            bottomNav.setOnItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_home || id == R.id.nav_collection) {
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_search) {
+                    Intent intent = new Intent(this, SearchActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_profile) {
+                    return true;
+                }
+                return false;
+            });
+        }
     }
 
     /**

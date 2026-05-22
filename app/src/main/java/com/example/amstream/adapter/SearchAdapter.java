@@ -50,21 +50,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         Movie movie = resultsList.get(position);
         
         holder.titleText.setText(movie.getTitle());
+        holder.ratingText.setText(String.format(java.util.Locale.US, "%.1f", movie.getTmdbRating()));
 
         // Extraire l'année de la date de sortie (format TMDB : AAAA-MM-JJ)
         String releaseDate = movie.getReleaseDate();
         if (releaseDate != null && releaseDate.length() >= 4) {
             String year = releaseDate.substring(0, 4);
-            holder.yearText.setText(year);
+            holder.yearText.setText(year + " • Fantasy"); // Adding dot and genre placeholder
         } else {
-            holder.yearText.setText("");
+            holder.yearText.setText("Fantasy");
         }
 
         // Chargement asynchrone de l'image de l'affiche via Glide
         if (movie.getPosterPath() != null && !movie.getPosterPath().isEmpty()) {
             Glide.with(context)
                     .load(movie.getPosterPath())
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(12))) // Coins de type ROUND_TWELVE
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(16))) // Updated to 16dp
                     .placeholder(android.R.drawable.ic_menu_gallery)
                     .error(android.R.drawable.ic_menu_report_image)
                     .into(holder.posterImage);
@@ -85,12 +86,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         ImageView posterImage;
         TextView titleText;
         TextView yearText;
+        TextView ratingText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             posterImage = itemView.findViewById(R.id.item_search_poster);
             titleText = itemView.findViewById(R.id.item_search_title);
             yearText = itemView.findViewById(R.id.item_search_year);
+            ratingText = itemView.findViewById(R.id.item_search_rating);
         }
     }
 }

@@ -21,6 +21,8 @@ public class Movie implements Serializable {
     private double tmdbRating;
     private String originalLanguage;
     private double popularity;
+    private int duration;
+    private String genre;
 
     // Données personnelles de l'utilisateur
     private float personalRating;   // Sur 5 étoiles
@@ -34,6 +36,8 @@ public class Movie implements Serializable {
         this.personalStatus = "À voir";
         this.personalReview = "";
         this.watchDate = "";
+        this.duration = 0;
+        this.genre = "";
     }
 
     // Constructeur complet
@@ -58,6 +62,8 @@ public class Movie implements Serializable {
         obj.put("tmdbRating", tmdbRating);
         obj.put("originalLanguage", originalLanguage);
         obj.put("popularity", popularity);
+        obj.put("duration", duration);
+        obj.put("genre", genre);
         obj.put("personalRating", (double) personalRating);
         obj.put("personalStatus", personalStatus);
         obj.put("personalReview", personalReview);
@@ -76,6 +82,8 @@ public class Movie implements Serializable {
         movie.setTmdbRating(obj.optDouble("tmdbRating", 0.0));
         movie.setOriginalLanguage(obj.optString("originalLanguage", ""));
         movie.setPopularity(obj.optDouble("popularity", 0.0));
+        movie.setDuration(obj.optInt("duration", 0));
+        movie.setGenre(obj.optString("genre", ""));
         movie.setPersonalRating((float) obj.optDouble("personalRating", 0.0));
         movie.setPersonalStatus(obj.optString("personalStatus", "À voir"));
         movie.setPersonalReview(obj.optString("personalReview", ""));
@@ -107,6 +115,12 @@ public class Movie implements Serializable {
 
     public double getPopularity() { return popularity; }
     public void setPopularity(double popularity) { this.popularity = popularity; }
+
+    public int getDuration() { return duration; }
+    public void setDuration(int duration) { this.duration = duration; }
+
+    public String getGenre() { return genre; }
+    public void setGenre(String genre) { this.genre = genre; }
 
     public float getPersonalRating() { return personalRating; }
     public void setPersonalRating(float personalRating) { this.personalRating = personalRating; }

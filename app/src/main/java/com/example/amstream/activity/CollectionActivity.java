@@ -25,6 +25,7 @@ import com.example.amstream.R;
 import com.example.amstream.adapter.CollectionAdapter;
 import com.example.amstream.manager.CollectionManager;
 import com.example.amstream.model.Movie;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class CollectionActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TextView textEmpty;
+    private TextView textCount;
     private CollectionAdapter adapter;
     private CollectionManager collectionManager;
     private int savedScrollPosition = 0;
@@ -55,11 +57,20 @@ public class CollectionActivity extends AppCompatActivity {
 
         // Configurer la toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_collection);
+        toolbar.setTitle(""); // Hide default title immediately
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar.setNavigationOnClickListener(v -> {
+            // Ouvrir les paramètres ou un menu
+            startActivity(new Intent(this, SettingsActivity.class));
+        });
 
         // Initialiser les widgets
         recyclerView = findViewById(R.id.recycler_collection);
         textEmpty = findViewById(R.id.text_empty_collection);
+        textCount = findViewById(R.id.text_collection_count);
         FloatingActionButton fabSearch = findViewById(R.id.fab_search);
 
         // Configuration manager
@@ -72,6 +83,30 @@ public class CollectionActivity extends AppCompatActivity {
         fabSearch.setOnClickListener(v -> {
             Intent intent = new Intent(CollectionActivity.this, SearchActivity.class);
             startActivity(intent);
+        });
+
+        // Configurer la navigation basse
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setSelectedItemId(R.id.nav_collection);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_home) {
+                // Déjà sur l'accueil (Collection est l'accueil dans cette app)
+                return true;
+            } else if (id == R.id.nav_collection) {
+                return true;
+            } else if (id == R.id.nav_search) {
+                Intent intent = new Intent(this, SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                return true;
+            } else if (id == R.id.nav_profile) {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                return true;
+            }
+            return false;
         });
 
         // Enregistrer la position si restaurée
@@ -160,9 +195,11 @@ public class CollectionActivity extends AppCompatActivity {
         if (list.isEmpty()) {
             textEmpty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
+            textCount.setText("Aucun film enregistré");
         } else {
             textEmpty.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
+            textCount.setText(list.size() + " films et séries enregistrés");
             
             // Instancier l'adaptateur
             adapter = new CollectionAdapter(this, list, new CollectionAdapter.OnItemClickListener() {

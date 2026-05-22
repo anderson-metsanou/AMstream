@@ -1,38 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout Collection : Toolbar + RecyclerView + FAB -->
+<!-- Layout Collection Updated - Google Stitch Design -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/deep_night_slate">
+    android:background="@color/am_slate">
 
-    <!-- Toolbar avec titre et menu d'options -->
+    <!-- Top AppBar Style -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_collection"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/surface_container"
         android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_menu_burger"
+        app:title=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/Theme.AMstream.Toolbar"
-        app:title="@string/collection_title"
-        app:titleTextColor="@color/elven_gold" />
+        app:popupTheme="@style/Theme.AMstream.Toolbar">
 
-    <!-- RecyclerView pour afficher les films de la collection -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cinzel"
+            android:text="AMSTREAM"
+            android:textColor="@color/elven_gold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.4" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Main Header Text Area -->
+    <LinearLayout
+        android:id="@+id/collection_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_collection">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collection_title"
+            android:textColor="@color/text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_collection_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="4 films et séries enregistrés"
+            android:textColor="@color/text_hint"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- RecyclerView for cards -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_collection"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:paddingBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_collection" />
+        app:layout_constraintTop_toBottomOf="@id/collection_header" />
 
-    <!-- Message affiché quand la collection est vide -->
+    <!-- Message empty -->
     <TextView
         android:id="@+id/text_empty_collection"
         android:layout_width="wrap_content"
@@ -45,19 +85,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_collection" />
+        app:layout_constraintTop_toBottomOf="@id/collection_header" />
 
-    <!-- FloatingActionButton pour accéder à la recherche -->
+    <!-- FAB Search (as per design button) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="90dp"
         android:contentDescription="@string/menu_search"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/elven_gold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/deep_night_slate" />
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.AMstream.FAB"
+        app:tint="@color/am_slate" />
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_container"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

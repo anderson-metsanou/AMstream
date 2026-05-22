@@ -3,3 +3,9 @@ test.md
 analysis_results.md
 TP_PM_SPRINT_1_2025.txt
 design_results.md
+designs/
+gradle/
+build/
+.gradle/
+.idea/
+gradlew

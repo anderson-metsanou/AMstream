@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Star Path -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M50,5L58,35H85L60,52L70,85L50,65L30,85L40,52L15,35H42L50,5Z" />
+    <!-- Dotted Circle Path -->
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M50,5a45,45 0,1 1,0 90a45,45 0,1 1,0 -90" />
+    <!-- Inner Arch Path -->
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M50,15c-19.33,0 -35,15.67 -35,35c0,19.33 15.67,35 35,35c19.33,0 35,-15.67 35,-35" />
+</vector>

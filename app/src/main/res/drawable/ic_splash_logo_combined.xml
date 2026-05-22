@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="2dp"
+                android:color="@color/elven_gold"
+                android:dashWidth="8dp"
+                android:dashGap="8dp" />
+            <size android:width="160dp" android:height="160dp" />
+        </shape>
+    </item>
+    <item
+        android:top="20dp"
+        android:bottom="20dp"
+        android:left="20dp"
+        android:right="20dp">
+        <vector
+            android:width="120dp"
+            android:height="120dp"
+            android:viewportWidth="100"
+            android:viewportHeight="100">
+            <!-- Star Path -->
+            <path
+                android:fillColor="#FFD700"
+                android:pathData="M50,5L58,35H85L60,52L70,85L50,65L30,85L40,52L15,35H42L50,5Z" />
+            <!-- Inner Arch Path -->
+            <path
+                android:strokeColor="#FFD700"
+                android:strokeWidth="1.5"
+                android:strokeLineCap="round"
+                android:pathData="M50,15c-19.33,0 -35,15.67 -35,35c0,19.33 15.67,35 35,35c19.33,0 35,-15.67 35,-35" />
+        </vector>
+    </item>
+</layer-list>

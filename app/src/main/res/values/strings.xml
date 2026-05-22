@@ -2,10 +2,11 @@
 <resources>
     <!-- App -->
     <string name="app_name">AMstream</string>
-    <string name="app_tagline">Fantasy Movies \u0026 Series</string>
+    <string name="app_tagline">Votre Portail de Fantasy</string>
 
     <!-- Splash -->
     <string name="splash_loading">Ouverture du portail magique…</string>
+    <string name="splash_copyright">© 2024 AMstream — Tous droits réservés.</string>
 
     <!-- Collection -->
     <string name="collection_title">Ma Collection</string>

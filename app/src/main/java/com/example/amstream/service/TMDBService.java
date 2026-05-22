@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -231,8 +232,13 @@ public class TMDBService {
         // Champs de métadonnées additionnels requis par le TableLayout
         movie.setOriginalLanguage(movieObj.optString("original_language", "fr").toUpperCase());
         movie.setPopularity(movieObj.optDouble("popularity", 0.0));
+        movie.setDuration(movieObj.optInt("runtime", 0));
 
-        // Essayer d'extraire la durée s'il y a lieu (popularité utilisée à la place si non renseignée)
+        JSONArray genres = movieObj.optJSONArray("genres");
+        if (genres != null && genres.length() > 0) {
+            movie.setGenre(genres.getJSONObject(0).optString("name", ""));
+        }
+
         return movie;
     }
 }

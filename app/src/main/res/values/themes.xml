@@ -12,10 +12,10 @@
         <!-- Couleurs secondaires -->
         <item name="colorSecondary">@color/elven_gold</item>
         <item name="colorSecondaryVariant">@color/elven_gold_dark</item>
-        <item name="colorOnSecondary">@color/deep_night_slate</item>
+        <item name="colorOnSecondary">@color/am_slate</item>
 
         <!-- Couleurs de fond et surface -->
-        <item name="android:colorBackground">@color/deep_night_slate</item>
+        <item name="android:colorBackground">@color/am_slate</item>
         <item name="colorSurface">@color/surface_container</item>
         <item name="colorOnSurface">@color/text_primary</item>
 
@@ -24,31 +24,48 @@
         <item name="colorOnError">@color/error_container</item>
 
         <!-- Barre de statut et navigation -->
-        <item name="android:statusBarColor">@color/deep_night_slate</item>
-        <item name="android:navigationBarColor">@color/deep_night_slate</item>
+        <item name="android:statusBarColor">@color/am_slate</item>
+        <item name="android:navigationBarColor">@color/am_slate</item>
 
         <!-- Texte -->
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
+
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
     </style>
 
     <!-- Thème spécial pour le Splash Screen -->
     <style name="Theme.AMstream.Splash" parent="Theme.AMstream">
-        <item name="android:windowBackground">@color/deep_night_slate</item>
+        <item name="android:windowBackground">@color/am_slate</item>
     </style>
 
     <!-- Style pour la Toolbar -->
     <style name="Theme.AMstream.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/elven_gold</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:fontFamily">@font/cinzel</item>
+        <item name="fontFamily">@font/cinzel</item>
     </style>
 
     <!-- Style CardView de la collection -->
     <style name="Widget.AMstream.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/surface_container_high</item>
-        <item name="cardCornerRadius">12dp</item>
-        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="Widget.AMstream.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">20dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AMstream.FAB" parent="">
+        <item name="cornerSize">16dp</item>
     </style>
 
 </resources>

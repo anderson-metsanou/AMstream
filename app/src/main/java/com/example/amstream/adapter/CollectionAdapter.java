@@ -55,43 +55,39 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
         Movie movie = movieList.get(position);
         
         holder.titleText.setText(movie.getTitle());
-        holder.ratingBar.setRating(movie.getPersonalRating());
+        holder.ratingBar.setRating((float) movie.getPersonalRating());
+        holder.ratingText.setText(String.valueOf(movie.getPersonalRating()));
         
         // Date de visionnage
         if (movie.getWatchDate().trim().isEmpty()) {
             holder.dateText.setVisibility(View.GONE);
         } else {
             holder.dateText.setVisibility(View.VISIBLE);
-            holder.dateText.setText(context.getString(R.string.detail_watch_date) + " : " + movie.getWatchDate());
+            holder.dateText.setText("Vu le " + movie.getWatchDate());
         }
 
         // Configuration dynamique du badge de statut personnel
         String status = movie.getPersonalStatus();
-        holder.statusText.setText(status);
+        holder.statusText.setText(status.toUpperCase());
         
         // Application d'un fond arrondi (badge) de couleur thématique
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
-        drawable.setCornerRadius(16); // Effet arrondi pour le badge de statut
+        drawable.setCornerRadius(16); 
         
         if (context.getString(R.string.collection_status_watched).equalsIgnoreCase(status)) {
-            drawable.setColor(ContextCompat.getColor(context, R.color.status_watched));
+            drawable.setColor(Color.parseColor("#4D2E7D6B")); // Transparent Teal
         } else if (context.getString(R.string.collection_status_watching).equalsIgnoreCase(status)) {
-            drawable.setColor(ContextCompat.getColor(context, R.color.status_watching));
-            holder.statusText.setTextColor(ContextCompat.getColor(context, R.color.black)); // Texte sombre sur fond jaune pour le contraste
+            drawable.setColor(Color.parseColor("#4DFFD700")); // Transparent Gold
         } else {
-            drawable.setColor(ContextCompat.getColor(context, R.color.status_to_watch));
-            holder.statusText.setTextColor(Color.WHITE);
+            drawable.setColor(Color.parseColor("#4D6A0DAD")); // Transparent Purple
         }
         holder.statusText.setBackground(drawable);
 
-        // Chargement asynchrone de l'image de l'affiche via la bibliothèque externe Glide (Exigence TP)
-        // Glide est choisi car il intègre automatiquement la mise en cache sur disque/mémoire, le recyclage des bitmaps 
-        // et l'adaptation au cycle de vie de l'activité/fragment.
         if (movie.getPosterPath() != null && !movie.getPosterPath().isEmpty()) {
             Glide.with(context)
                     .load(movie.getPosterPath())
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(12))) // Arrondi de type ROUND_TWELVE
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(16)))
                     .placeholder(android.R.drawable.ic_menu_gallery)
                     .error(android.R.drawable.ic_menu_report_image)
                     .into(holder.posterImage);
@@ -116,6 +112,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
         TextView titleText;
         TextView statusText;
         RatingBar ratingBar;
+        TextView ratingText;
         TextView dateText;
         View menuButton;
 
@@ -125,6 +122,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
             titleText = itemView.findViewById(R.id.item_coll_title);
             statusText = itemView.findViewById(R.id.item_coll_status);
             ratingBar = itemView.findViewById(R.id.item_coll_rating);
+            ratingText = itemView.findViewById(R.id.item_coll_rating_text);
             dateText = itemView.findViewById(R.id.item_coll_date);
             menuButton = itemView.findViewById(R.id.item_coll_menu);
         }

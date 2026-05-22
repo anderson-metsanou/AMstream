@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,10 @@ public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";
     private static final int DELAY_MS = 3000;
     
+    private ProgressBar progressBar;
+    private TextView percentText;
+    private int progressStatus = 0;
+
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable redirectRunnable = new Runnable() {
         @Override
@@ -38,8 +44,36 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Log.d(TAG, "onCreate : Initialisation de l'écran Splash.");
 
+        progressBar = findViewById(R.id.splash_progress);
+        percentText = findViewById(R.id.splash_percent);
+
+        startProgressAnimation();
+
         // Planifie la redirection automatique vers l'écran principal
         handler.postDelayed(redirectRunnable, DELAY_MS);
+    }
+
+    private void startProgressAnimation() {
+        new Thread(new Runnable() {
+            public void run() {
+                while (progressStatus < 100) {
+                    progressStatus += 2;
+                    // Update the progress bar and display the current value in the text view
+                    handler.post(new Runnable() {
+                        public void run() {
+                            progressBar.setProgress(progressStatus);
+                            percentText.setText(progressStatus + "%");
+                        }
+                    });
+                    try {
+                        // Sleep for 50 milliseconds to slow down the animation
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     /**

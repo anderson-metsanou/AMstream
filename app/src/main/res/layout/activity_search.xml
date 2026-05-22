@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout Recherche TMDB : Toolbar avec SearchView + RecyclerView grille -->
+<!-- Layout Recherche TMDB Updated - Google Stitch Style -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/deep_night_slate"
+    android:background="@color/am_slate"
     android:orientation="vertical">
 
-    <!-- Toolbar avec SearchView -->
+    <!-- Top AppBar Style -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/surface_container"
-        android:elevation="4dp"
+        android:background="@color/am_slate"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:popupTheme="@style/Theme.AMstream.Toolbar"
         app:title="@string/search_title"
-        app:titleTextColor="@color/elven_gold" />
+        app:titleTextColor="@color/text_primary"
+        app:popupTheme="@style/Theme.AMstream.Toolbar" />
 
-    <!-- Texte de chargement -->
+    <!-- Search Bar Area (Under Title) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_glass_search"
+            app:iconifiedByDefault="false"
+            app:queryHint="@string/search_hint"
+            app:searchIcon="@android:drawable/ic_menu_search"
+            app:queryBackground="@android:color/transparent" />
+
+    </FrameLayout>
+
+    <!-- Horizontal Filters (Chips) -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingVertical="8dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/filter_chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            app:singleSelection="true"
+            app:selectionRequired="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_popular"
+                style="@style/Widget.AMstream.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Populaire"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_top_rated"
+                style="@style/Widget.AMstream.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mieux notés" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_release_date"
+                style="@style/Widget.AMstream.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date de sortie" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_upcoming"
+                style="@style/Widget.AMstream.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bientôt" />
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- Loading State -->
     <TextView
         android:id="@+id/text_search_loading"
         android:layout_width="match_parent"
@@ -32,7 +98,7 @@
         android:textStyle="italic"
         android:visibility="gone" />
 
-    <!-- Message quand aucun résultat -->
+    <!-- Empty State -->
     <TextView
         android:id="@+id/text_search_empty"
         android:layout_width="match_parent"
@@ -44,7 +110,7 @@
         android:textSize="16sp"
         android:visibility="gone" />
 
-    <!-- RecyclerView en grille pour les résultats -->
+    <!-- Results Grid -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_search"
         android:layout_width="match_parent"
@@ -52,5 +118,16 @@
         android:layout_weight="1"
         android:clipToPadding="false"
         android:padding="8dp" />
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_container"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>

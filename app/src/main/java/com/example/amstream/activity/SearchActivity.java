@@ -18,6 +18,8 @@ import com.example.amstream.R;
 import com.example.amstream.adapter.SearchAdapter;
 import com.example.amstream.model.Movie;
 import com.example.amstream.service.TMDBService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,18 +67,24 @@ public class SearchActivity extends AppCompatActivity {
         // Service réseau TMDB
         tmdbService = new TMDBService();
 
-        // RecyclerView en Grille de 2 colonnes (Exigence Conception visuelle)
+        // RecyclerView en Grille de 2 colonnes
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        // Configurer la recherche dans la Toolbar
-        setupSearchView(toolbar);
+        // Configurer la recherche
+        setupSearchView();
+
+        // Configurer les filtres (Chips)
+        setupFilters();
+
+        // Configurer la navigation basse
+        setupBottomNavigation();
 
         // Restaurer la requête de recherche si présente
         if (savedInstanceState != null) {
             currentQuery = savedInstanceState.getString(KEY_QUERY_STRING, "");
         }
 
-        // Par défaut, charger les films populaires du genre Fantasy pour ne pas laisser l'écran vide
+        // Par défaut, charger les films populaires du genre Fantasy
         if (currentQuery.trim().isEmpty()) {
             discoverFantasyDefaults();
         } else {
@@ -84,14 +92,68 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    private void setupSearchView() {
+        SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                currentQuery = query;
+                performSearch(query);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                currentQuery = newText;
+                return false;
+            }
+        });
+    }
+
+    private void setupFilters() {
+        ChipGroup chipGroup = findViewById(R.id.filter_chip_group);
+        chipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (!checkedIds.isEmpty()) {
+                int id = checkedIds.get(0);
+                // Ici on pourrait filtrer localement ou relancer une recherche spécifique
+                // Pour le TP, on simule le changement de filtre
+                Toast.makeText(this, "Filtre appliqué", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_search);
+            bottomNav.setOnItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_home || id == R.id.nav_collection) {
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_search) {
+                    return true;
+                } else if (id == R.id.nav_profile) {
+                    startActivity(new Intent(this, SettingsActivity.class));
+                    return true;
+                }
+                return false;
+            });
+        }
+    }
+
     /**
      * Justification onResume : L'écran devient interactif.
-     * Simple log technique.
      */
     @Override
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume : L'écran de recherche est au premier plan.");
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_search);
+        }
     }
 
     /**
@@ -110,7 +172,7 @@ public class SearchActivity extends AppCompatActivity {
      */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.outState.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
         outState.putString(KEY_QUERY_STRING, currentQuery);
         Log.d(TAG, "onSaveInstanceState : Sauvegarde de la requête : " + currentQuery);
     }
@@ -129,42 +191,10 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    // Gestion du clic de retour de la toolbar
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    // Configurer le widget SearchView dans la Toolbar
-    private void setupSearchView(Toolbar toolbar) {
-        // Ajouter dynamiquement une SearchView à la toolbar
-        SearchView searchView = new SearchView(this);
-        searchView.setQueryHint(getString(R.string.search_hint));
-        searchView.setIconifiedByDefault(false); // Toujours visible
-        
-        Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
-                Toolbar.LayoutParams.MATCH_PARENT, 
-                Toolbar.LayoutParams.WRAP_CONTENT
-        );
-        searchView.setLayoutParams(layoutParams);
-        toolbar.addView(searchView);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                currentQuery = query;
-                performSearch(query);
-                searchView.clearFocus(); // Ferme le clavier
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                currentQuery = newText;
-                return false;
-            }
-        });
     }
 
     // Appeler l'API de découverte de films de Fantasy (Thématique de l'app)

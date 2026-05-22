@@ -1,6 +1,7 @@
 package com.example.amstream.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,8 +23,10 @@ import com.example.amstream.R;
 import com.example.amstream.manager.CollectionManager;
 import com.example.amstream.model.Movie;
 import com.example.amstream.service.TMDBService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Écran 4 : Fiche Détail d'un film.
@@ -38,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String KEY_STATE_DATE = "state_date";
 
     private ImageView imgPoster;
-    private TextView txtTitle, txtTmdbRating, txtReleaseDate, txtLanguage, txtPopularity, txtSynopsis;
+    private TextView txtTitle, txtTmdbRating, txtReleaseDate, txtLanguage, txtPopularity, txtSynopsis, txtDuration, txtGenre;
     private Spinner spinnerStatus;
     private RatingBar ratingBar;
     private EditText editReview;
@@ -74,6 +77,8 @@ public class DetailActivity extends AppCompatActivity {
         txtReleaseDate = findViewById(R.id.detail_release_date);
         txtLanguage = findViewById(R.id.detail_language);
         txtPopularity = findViewById(R.id.detail_popularity);
+        txtDuration = findViewById(R.id.detail_duration);
+        txtGenre = findViewById(R.id.detail_genre);
         txtSynopsis = findViewById(R.id.detail_synopsis);
         spinnerStatus = findViewById(R.id.detail_spinner_status);
         ratingBar = findViewById(R.id.detail_rating_bar);
@@ -108,6 +113,36 @@ public class DetailActivity extends AppCompatActivity {
 
         // Listener Bouton Enregistrer / Ajouter
         btnAdd.setOnClickListener(v -> saveToCollection());
+
+        setupBottomNavigation();
+    }
+
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            // Pas d'item sélectionné par défaut car on est dans le détail d'un film
+            bottomNav.setSelectedItemId(0); 
+            bottomNav.setOnItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_home || id == R.id.nav_collection) {
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_search) {
+                    Intent intent = new Intent(this, SearchActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_profile) {
+                    Intent intent = new Intent(this, SettingsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            });
+        }
     }
 
     /**
@@ -212,11 +247,15 @@ public class DetailActivity extends AppCompatActivity {
             public void onSuccess(Movie updatedMovie) {
                 // Remplir le TableLayout (Exigence structurelle)
                 txtLanguage.setText(updatedMovie.getOriginalLanguage());
-                txtPopularity.setText(String.format("%.1f", updatedMovie.getPopularity()));
+                txtPopularity.setText(String.format(java.util.Locale.US, "%.1f", updatedMovie.getPopularity()));
+                txtDuration.setText(updatedMovie.getDuration() + " min");
+                txtGenre.setText(updatedMovie.getGenre());
                 
                 // Mettre à jour les données manquantes du modèle
                 movie.setOriginalLanguage(updatedMovie.getOriginalLanguage());
                 movie.setPopularity(updatedMovie.getPopularity());
+                movie.setDuration(updatedMovie.getDuration());
+                movie.setGenre(updatedMovie.getGenre());
             }
 
             @Override
@@ -224,6 +263,8 @@ public class DetailActivity extends AppCompatActivity {
                 // Pas d'affichage bloquant si indisponible, on met des valeurs par défaut
                 txtLanguage.setText("N/A");
                 txtPopularity.setText("N/A");
+                txtDuration.setText("N/A");
+                txtGenre.setText("N/A");
                 Log.w(TAG, "Impossible de charger les métadonnées TMDB supplémentaires : " + errorMessage);
             }
         });
